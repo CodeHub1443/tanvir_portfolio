@@ -12,47 +12,47 @@ export default function App() {
       duration: 0.6
     })
       .from('.hero-role', { opacity: 0, y: 20, duration: 0.6 }, '-=0.2')
-      .from('.hero-title', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
-      .from('.hero-desc', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
-      .from('.hero-bg-image img', { opacity: 0, duration: 1.2 }, '-=0.8')
+      .from(
+        '.title-char',
+        {
+          opacity: 0,
+          y: 40,
+          duration: 0.6,
+          stagger: 0.06
+        },
+        '-=0.4'
+      )
+      .from('.hero-desc', { opacity: 0, y: 30, duration: 0.7 }, '-=0.3')
+      .from('.hero-cta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.3')
+      .from('.hero-bg-image img', { opacity: 0, duration: 1.2 }, '-=1')
 
     const track = document.querySelector('.scroll-track')
     const progress = document.querySelector('.scroll-progress')
-
-    const trackHeight = track.offsetHeight
-    const progressHeight = progress.offsetHeight
 
     const updateScrollIndicator = () => {
       const scrollTop = window.scrollY
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight
 
-      const scrollRatio = docHeight > 0 ? scrollTop / docHeight : 0
+      const ratio = docHeight > 0 ? scrollTop / docHeight : 0
       const minHeight = 60
       const maxHeight = 140
-
-      const dynamicHeight =
-        minHeight + (maxHeight - minHeight) * scrollRatio
-
-      const maxTop = trackHeight - dynamicHeight
+      const height = minHeight + (maxHeight - minHeight) * ratio
+      const maxTop = track.offsetHeight - height
 
       gsap.to(progress, {
-        top: maxTop * scrollRatio,
-        height: dynamicHeight,
-        duration: 0.3,
+        top: maxTop * ratio,
+        height,
+        duration: 0.25,
         ease: 'power2.out'
       })
-
     }
 
     window.addEventListener('scroll', updateScrollIndicator)
     updateScrollIndicator()
 
-    return () => {
-      window.removeEventListener('scroll', updateScrollIndicator)
-    }
+    return () => window.removeEventListener('scroll', updateScrollIndicator)
   }, [])
-
 
   return (
     <div className="page">
@@ -79,7 +79,7 @@ export default function App() {
 
         {/* SOCIAL RAIL */}
         <div className="social-rail">
-          <span className="rail-line top"></span>
+          <span className="rail-line"></span>
 
           <div className="rail-icons">
             <a href="#" aria-label="Facebook">
@@ -101,8 +101,7 @@ export default function App() {
             </a>
           </div>
 
-
-          <span className="rail-line bottom"></span>
+          <span className="rail-line"></span>
         </div>
 
         {/* SCROLL INDICATOR */}
@@ -112,8 +111,7 @@ export default function App() {
           </div>
         </div>
 
-
-        {/* HERO BACKGROUND IMAGE */}
+        {/* HERO IMAGE */}
         <div className="hero-bg-image">
           <img src="/assets/hero.png" alt="" />
         </div>
@@ -123,23 +121,26 @@ export default function App() {
           <span className="hero-role">Product Designer</span>
 
           <h1 className="hero-title">
-            {'Tanvir'.split('').map((char, i) => (
+            {'Tanvir'.split('').map((c, i) => (
               <span className="title-char" key={i}>
-                {char}
+                {c}
               </span>
             ))}
             <span className="title-char title-dot">.</span>
           </h1>
 
-
           <p className="hero-desc">
-            Working with client and community, we deliver
-            masterpieces that create vibrant new places and spaces.
+            Working with client and community, we deliver masterpieces that
+            create vibrant new places and spaces.
           </p>
+
+          <a href="#work" className="hero-cta">
+            Explore what I’ve built
+          </a>
         </div>
       </section>
 
-      <section className="section work">Work</section>
+      <section id="work" className="section work">Work</section>
       <section className="section about">About</section>
       <section className="section footer">Footer</section>
     </div>
