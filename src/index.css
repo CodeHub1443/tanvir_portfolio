@@ -1,0 +1,238 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* PAGE */
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* SECTIONS */
+.section {
+  min-height: 100vh;
+  padding: 80px 0;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 120px;
+  background: radial-gradient(circle at top right,
+      #2a2a2a 0%,
+      #0b0b0b 40%,
+      #000 70%);
+  overflow: hidden;
+}
+
+/* IMAGE LAYER */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg-image img {
+  position: absolute;
+  top: -0%;
+  right: -40px;
+  height: 110%;
+  opacity: 0.45;
+  filter: contrast(1.05);
+
+}
+
+
+/* DARK OVERLAY */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at left center,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.65) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* HERO CONTENT */
+.hero-left {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+}
+
+.hero-role {
+  font-size: 14px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 96px;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.title-dot {
+  color: red;
+}
+
+
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+/* OTHER SECTIONS */
+.work {
+  background: #050505;
+}
+
+.about {
+  background: #0a0a0a;
+}
+
+.footer {
+  background: #000;
+}
+
+/* NAVBAR */
+.navbar {
+  position: absolute;
+  top: 40px;
+  left: 120px;
+  right: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.nav-brand {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-brand span {
+  color: red;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.nav-phone {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* SOCIAL RAIL */
+.social-rail {
+  position: fixed;
+  /* key change */
+  left: 40px;
+  top: 50%;
+  /* center of viewport */
+  transform: translateY(-50%);
+  /* exact centering */
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+
+.rail-line {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.6);
+  flex: 1;
+}
+
+.rail-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 12px 0;
+}
+
+.rail-icons a {
+  font-size: 12px;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+/* SCROLL INDICATOR */
+.scroll-indicator {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.scroll-track {
+  position: relative;
+  width: 2px;
+  height: 420px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-progress {
+  position: absolute;
+  top: 160px;
+  /* initial static position */
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* initial red segment length */
+  background: red;
+}
+
+.hero-title {
+  display: flex;
+}
+
+.title-char {
+  display: inline-block;
+}
+
+.rail-icons svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  opacity: 0.75;
+}
