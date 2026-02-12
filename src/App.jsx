@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { gsap } from 'gsap'
+import HeroImageReveal from './components/HeroImageReveal'
 
 export default function App() {
   useEffect(() => {
@@ -24,7 +25,9 @@ export default function App() {
       )
       .from('.hero-desc', { opacity: 0, y: 30, duration: 0.7 }, '-=0.3')
       .from('.hero-cta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.3')
-      .from('.hero-bg-image img', { opacity: 0, duration: 1.2 }, '-=1')
+    // Hero image reveal is handled by the component itself, 
+    // but we can trigger it or just let it run on mount.
+    // We'll keep the timing consistent with the rest.
 
     const track = document.querySelector('.scroll-track')
     const progress = document.querySelector('.scroll-progress')
@@ -111,10 +114,14 @@ export default function App() {
           </div>
         </div>
 
-        {/* HERO IMAGE */}
-        <div className="hero-bg-image">
-          <img src="/assets/hero.png" alt="" />
-        </div>
+        {/* HERO IMAGE REVEAL */}
+        <HeroImageReveal
+          src="/assets/hero.png"
+          gridDensity={50}
+          animationSpeed={1.2}
+          staggerAmount={0.008}
+          yOffset={60}
+        />
 
         {/* HERO CONTENT */}
         <div className="hero-left">

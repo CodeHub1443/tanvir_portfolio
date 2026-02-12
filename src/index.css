@@ -162,19 +162,18 @@ body {
   background: red;
 }
 
-/* HERO IMAGE */
-.hero-bg-image {
+/* HERO IMAGE REVEAL */
+.hero-bg-image-container {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+  /* Let clicks pass through to content */
 }
 
-.hero-bg-image img {
-  position: absolute;
-  top: -0%;
-  right: -40px;
-  height: 110%;
-  opacity: 0.75;
+.hero-bg-image-container canvas {
+  opacity: 0.85;
+  /* Subtle transparency as in original */
 }
 
 /* HERO CONTENT */
