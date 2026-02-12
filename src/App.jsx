@@ -117,10 +117,11 @@ export default function App() {
         {/* HERO IMAGE REVEAL */}
         <HeroImageReveal
           src="/assets/hero.png"
-          gridDensity={50}
-          animationSpeed={1.2}
-          staggerAmount={0.008}
+          gridDensity={35}
+          animationSpeed={1.5}
+          staggerAmount={0.01}
           yOffset={60}
+          cubeDepth={30}
         />
 
         {/* HERO CONTENT */}

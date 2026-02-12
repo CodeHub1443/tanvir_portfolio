@@ -3,12 +3,13 @@ import { gsap } from 'gsap'
 
 export default function HeroImageReveal({
     src = '/assets/hero.png',
-    gridDensity = 40,
-    animationSpeed = 1,
-    staggerAmount = 0.01,
-    depthIntensity = 100,
-    perspective = 1000,
-    yOffset = 0,
+    gridDensity = 30, // Lowered slightly for performance with 3D cubes
+    animationSpeed = 1.4,
+    staggerAmount = 0.008,
+    depthIntensity = 150,
+    perspective = 1200,
+    yOffset = 60,
+    cubeDepth = 40, // Thickness of the particles
 }) {
     const canvasRef = useRef(null)
     const containerRef = useRef(null)
@@ -51,8 +52,6 @@ export default function HeroImageReveal({
             canvas.style.height = `${rect.height}px`
 
             const imgAspect = img.width / img.height
-
-            // Alignment: right side, slight height scale
             drawHeight = rect.height * 1.1
             drawWidth = drawHeight * imgAspect
             offsetX = rect.width - drawWidth + 40
@@ -76,13 +75,17 @@ export default function HeroImageReveal({
                         sh: img.height / rows,
                         tx: centerX,
                         ty: centerY,
-                        x: centerX + (Math.random() - 0.5) * 400,
-                        y: centerY + (Math.random() - 0.5) * 400,
-                        z: Math.random() * -depthIntensity * 5 - 200,
-                        rotationX: (Math.random() - 0.5) * 1.5,
-                        rotationY: (Math.random() - 0.5) * 1.5,
+                        x: centerX + (Math.random() - 0.5) * 600,
+                        y: centerY + (Math.random() - 0.5) * 600,
+                        z: Math.random() * -depthIntensity * 10 - 400,
+
+                        // 3D Rotations (radians)
+                        rotationX: (Math.random() - 0.5) * Math.PI * 4, // High energy spin
+                        rotationY: (Math.random() - 0.5) * Math.PI * 4,
+                        rotationZ: (Math.random() - 0.5) * Math.PI * 2,
+
                         scale: 0.1,
-                        opacity: 0
+                        opacity: 0,
                     })
                 }
             }
@@ -95,75 +98,153 @@ export default function HeroImageReveal({
                 onComplete: () => setFormationComplete(true)
             })
 
-            // Phase 1: Activation
+            // Phase 1: Activation & Launch
             tl.to(fragments.current, {
-                opacity: 0.4,
-                z: '+=100',
-                duration: 0.4 * animationSpeed,
-                ease: 'sine.inOut',
+                opacity: 0.6,
+                z: '+=200',
+                duration: 0.5 * animationSpeed,
+                ease: 'power2.inOut',
                 stagger: {
                     grid: [rows, cols],
                     from: 'center',
-                    amount: 0.3 * animationSpeed
+                    amount: 0.4 * animationSpeed
                 }
             })
 
-            // Phase 2: Assembly
+            // Phase 2: Assembly & Spin Stabilization
             tl.to(fragments.current, {
                 x: (i, target) => target.tx,
                 y: (i, target) => target.ty,
                 z: 0,
                 rotationX: 0,
                 rotationY: 0,
+                rotationZ: 0,
                 scale: 1,
                 opacity: 1,
-                duration: 1.2 * animationSpeed,
-                ease: 'power3.out',
+                duration: 1.5 * animationSpeed,
+                ease: 'power4.out',
                 stagger: {
                     grid: [rows, cols],
                     from: 'center',
-                    amount: 0.8 * animationSpeed
+                    amount: 1.0 * animationSpeed
                 }
             }, "-=0.2")
         }
 
-        const render = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // 3D Projection Helper
+        const project = (x, y, z, p) => {
+            const scale = p / (p - z)
+            return {
+                x: (x - rectCenter.x) * scale + rectCenter.x,
+                y: (y - rectCenter.y) * scale + rectCenter.y,
+                scale
+            }
+        }
 
+        let rectCenter = { x: 0, y: 0 }
+
+        const render = () => {
+            const rect = containerRef.current?.getBoundingClientRect()
+            if (!rect) return
+            rectCenter = { x: rect.width / 2, y: rect.height / 2 }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
             const p = perspective
             mouse.current.x += (mouse.current.targetX - mouse.current.x) * 0.04
             mouse.current.y += (mouse.current.targetY - mouse.current.y) * 0.04
 
             if (formationComplete) {
+                // High-quality static draw with parallax
                 ctx.save()
-                ctx.translate(canvas.width / (2 * (window.devicePixelRatio || 1)), canvas.height / (2 * (window.devicePixelRatio || 1)))
-                ctx.rotate(mouse.current.y * 0.015)
-                ctx.rotate(mouse.current.x * 0.015)
+                ctx.translate(rectCenter.x, rectCenter.y)
+                ctx.rotate(mouse.current.y * 0.012)
+                ctx.rotate(mouse.current.x * 0.012)
                 ctx.scale(1.02, 1.02)
-                ctx.translate(-canvas.width / (2 * (window.devicePixelRatio || 1)), -canvas.height / (2 * (window.devicePixelRatio || 1)))
+                ctx.translate(-rectCenter.x, -rectCenter.y)
                 ctx.globalAlpha = 1
                 ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
                 ctx.restore()
             } else {
-                fragments.current.forEach(f => {
+                // Sort fragments by Z for proper 3D depth rendering
+                const sorted = [...fragments.current].sort((a, b) => a.z - b.z)
+
+                sorted.forEach(f => {
                     if (f.opacity <= 0) return
 
-                    ctx.save()
                     const scaleZ = p / (p - f.z)
-                    const x = (f.x - canvas.width / (2 * (window.devicePixelRatio || 1))) * scaleZ + canvas.width / (2 * (window.devicePixelRatio || 1))
-                    const y = (f.y - canvas.height / (2 * (window.devicePixelRatio || 1))) * scaleZ + canvas.height / (2 * (window.devicePixelRatio || 1))
 
-                    ctx.translate(x, y)
-                    ctx.scale(f.scale * scaleZ, f.scale * scaleZ)
-                    ctx.rotate(f.rotationX)
-                    ctx.rotate(f.rotationY)
+                    // Simple 3D Cube Projection logic
+                    // We'll draw the front face and two side faces based on rotation
+                    ctx.save()
 
+                    const screenPos = project(f.x, f.y, f.z, p)
+                    ctx.translate(screenPos.x, screenPos.y)
+                    ctx.scale(f.scale * screenPos.scale, f.scale * screenPos.scale)
+
+                    // Apply rotations
+                    ctx.rotate(f.rotationZ)
+                    // Note: We can't easily do true 3D rotation of the *content* in Canvas 2D 
+                    // without drawing faces. We will draw the "box" now.
+
+                    const w = fragWidth / 2
+                    const h = fragHeight / 2
+                    const d = cubeDepth * (f.scale * screenPos.scale) // Use a fixed-ish depth
+
+                    // Faces of the cube (projected)
+                    // For a premium feel, we simulate the 3D look by drawing the "thickness"
+
+                    // Calculate rotation offsets for the "box" look
+                    const cosX = Math.cos(f.rotationX)
+                    const sinX = Math.sin(f.rotationX)
+                    const cosY = Math.cos(f.rotationY)
+                    const sinY = Math.sin(f.rotationY)
+
+                    // Draw darker side faces first
+                    ctx.fillStyle = 'rgba(40, 40, 40, ' + f.opacity + ')'
+
+                    // Top/Bottom face
+                    if (sinX > 0) {
+                        ctx.beginPath()
+                        ctx.moveTo(-w, -h)
+                        ctx.lineTo(w, -h)
+                        ctx.lineTo(w, -h + sinX * 20)
+                        ctx.lineTo(-w, -h + sinX * 20)
+                        ctx.fill()
+                    } else {
+                        ctx.beginPath()
+                        ctx.moveTo(-w, h)
+                        ctx.lineTo(w, h)
+                        ctx.lineTo(w, h + sinX * 20)
+                        ctx.lineTo(-w, h + sinX * 20)
+                        ctx.fill()
+                    }
+
+                    // Left/Right face
+                    if (sinY > 0) {
+                        ctx.beginPath()
+                        ctx.moveTo(w, -h)
+                        ctx.lineTo(w, h)
+                        ctx.lineTo(w + sinY * 20, h)
+                        ctx.lineTo(w + sinY * 20, -h)
+                        ctx.fill()
+                    } else {
+                        ctx.beginPath()
+                        ctx.moveTo(-w, -h)
+                        ctx.lineTo(-w, h)
+                        ctx.lineTo(-w + sinY * 20, h)
+                        ctx.lineTo(-w + sinY * 20, -h)
+                        ctx.fill()
+                    }
+
+                    // Front face with image
                     ctx.globalAlpha = f.opacity
+                    // Apply a slight transform to simulate X/Y rotation on the image face
+                    ctx.transform(cosY, sinX * sinY, 0, cosX, 0, 0)
 
                     ctx.drawImage(
                         img,
                         f.sx, f.sy, f.sw, f.sh,
-                        -fragWidth / 2, -fragHeight / 2, fragWidth + 0.5, fragHeight + 0.5
+                        -w, -h, fragWidth + 1, fragHeight + 1
                     )
 
                     ctx.restore()
@@ -188,7 +269,7 @@ export default function HeroImageReveal({
             window.removeEventListener('mousemove', handleMouseMove)
             cancelAnimationFrame(animationFrameId.current)
         }
-    }, [isLoaded, gridDensity, animationSpeed, depthIntensity, perspective, yOffset])
+    }, [isLoaded, gridDensity, animationSpeed, depthIntensity, perspective, yOffset, cubeDepth])
 
     return (
         <div ref={containerRef} className="hero-bg-image-container" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden' }}>
