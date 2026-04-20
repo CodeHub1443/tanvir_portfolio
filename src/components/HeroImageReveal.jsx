@@ -10,8 +10,7 @@ export default function HeroImageReveal({
     perspective = 1200,
     yOffset = 60,
     cubeDepth = 40, // Thickness of the particles
-}) {
-    const canvasRef = useRef(null)
+}) {    const canvasRef = useRef(null)
     const containerRef = useRef(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [formationComplete, setFormationComplete] = useState(false)
@@ -51,11 +50,20 @@ export default function HeroImageReveal({
             canvas.style.width = `${rect.width}px`
             canvas.style.height = `${rect.height}px`
 
+            const isMobile = rect.width < 768
             const imgAspect = img.width / img.height
-            drawHeight = rect.height * 1.1
-            drawWidth = drawHeight * imgAspect
-            offsetX = rect.width - drawWidth + 40
-            offsetY = (rect.height - drawHeight) / 2 + yOffset
+            
+            if (isMobile) {
+                drawHeight = rect.height * 0.6
+                drawWidth = drawHeight * imgAspect
+                offsetX = (rect.width - drawWidth) / 2
+                offsetY = rect.height - drawHeight + 20
+            } else {
+                drawHeight = rect.height * 1.1
+                drawWidth = drawHeight * imgAspect
+                offsetX = rect.width - drawWidth + 40
+                offsetY = (rect.height - drawHeight) / 2 + yOffset
+            }
 
             rows = gridDensity
             cols = Math.round(rows * (drawWidth / drawHeight))
