@@ -9,6 +9,7 @@ import StartupAppliedAI from './components/StartupAppliedAI'
 import EngineeringPhilosophy from './components/EngineeringPhilosophy'
 import CurrentlyBuilding from './components/CurrentlyBuilding'
 import ContactTestimonials from './components/ContactTestimonials'
+import FAQSection from './components/FAQSection'
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -192,6 +193,9 @@ export default function App() {
 
       {/* CURRENTLY BUILDING */}
       <CurrentlyBuilding />
+
+      {/* FAQ — AEO */}
+      <FAQSection />
 
       {/* CONTACT */}
       <div id="testimonials"><ContactTestimonials /></div>

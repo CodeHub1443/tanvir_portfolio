@@ -1,47 +1,81 @@
-import nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer'
+
+const intentMap = {
+  hire: 'Hiring Inquiry',
+  project: 'Technical Project',
+  invest: 'Investment / Partnership',
+}
+
+function buildEmailHtml({ name, email, message, intentLabel }) {
+  return `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9f9f9;padding:32px;border-radius:8px;">
+      <h2 style="color:#111;margin-bottom:4px;">New Portfolio Message</h2>
+      <p style="color:#888;font-size:13px;margin-bottom:28px;">Received via tanvirtabassum portfolio</p>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:13px;color:#555;width:100px;">Intent</td>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:600;color:#008a4e;">${intentLabel}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:13px;color:#555;">Name</td>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;color:#111;">${name}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:13px;color:#555;">Email</td>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;">
+            <a href="mailto:${email}" style="color:#008a4e;">${email}</a>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-top:24px;">
+        <p style="font-size:13px;color:#555;margin-bottom:10px;">Message</p>
+        <div style="background:#fff;border:1px solid #e0e0e0;padding:18px;border-radius:6px;font-size:14px;line-height:1.7;color:#222;white-space:pre-wrap;">${message}</div>
+      </div>
+      <p style="margin-top:28px;font-size:12px;color:#aaa;">Reply to respond directly to ${name}.</p>
+    </div>
+  `
+}
 
 export default async function handler(req, res) {
-    // Only allow POST
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' })
+  }
 
-    const { name, email, message, intent } = req.body;
+  const { name, email, message, intent } = req.body ?? {}
 
-    // Basic validation
-    if (!name || !email || !message) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
+  if (!name?.trim() || !email?.trim() || !message?.trim()) {
+    return res.status(400).json({ error: 'Name, email and message are required.' })
+  }
 
-    try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Please provide a valid email address.' })
+  }
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            replyTo: email,
-            subject: `New Contact (${intent || 'General'})`,
-            html: `
-        <h3>New Message</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Intent:</b> ${intent || 'N/A'}</p>
-        <p><b>Message:</b><br/>${message}</p>
-      `,
-        };
+  const intentLabel = intentMap[intent] ?? 'General Inquiry'
 
-        await transporter.sendMail(mailOptions);
+  try {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: { rejectUnauthorized: false },
+    })
 
-        return res.status(200).json({ success: true });
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      to: 'tanvir.tabassum.bd@gmail.com',
+      replyTo: email,
+      subject: `[Portfolio] ${intentLabel} from ${name}`,
+      html: buildEmailHtml({ name, email, message, intentLabel }),
+    })
 
-    } catch (error) {
-        console.error('Email error:', error);
-        return res.status(500).json({ error: 'Failed to send email' });
-    }
+    return res.status(200).json({ success: true })
+  } catch (err) {
+    console.error('Email error:', err.message)
+    return res.status(500).json({ error: 'Failed to send message. Please try again.' })
+  }
 }
