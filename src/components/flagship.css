@@ -1,0 +1,108 @@
+/* ============================= */
+/* PERSPECTIVE WRAPPER */
+/* ============================= */
+
+.parent {
+    width: 320px;
+    height: 440px;
+    perspective: 1000px;
+}
+
+/* ============================= */
+/* CARD BASE */
+/* ============================= */
+
+.flagship-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #121214;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+/* ============================= */
+/* COLOR THEMES */
+/* ============================= */
+
+.card-agro {
+    box-shadow: 0 5px 10px rgba(0, 255, 140, 0.35);
+}
+
+.card-tdi {
+    box-shadow: 0 5px 10px rgba(0, 170, 255, 0.35);
+}
+
+.card-kb {
+    box-shadow: 0 5px 10px rgba(255, 70, 120, 0.35);
+}
+
+/* ============================= */
+/* TILT */
+/* ============================= */
+
+.parent:hover .flagship-card {
+    transform: rotateX(8deg) rotateY(-8deg);
+}
+
+/* ============================= */
+/* MEDIA */
+/* ============================= */
+
+.flagship-media {
+    height: 55%;
+    background: #1a1a1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s ease;
+}
+
+/* MEDIA ZOOM */
+.flagship-card:hover .flagship-media {
+    transform: scale(1.05);
+}
+
+/* ============================= */
+/* BODY */
+/* ============================= */
+
+.flagship-body {
+    padding: 25px;
+    color: #e5e5e5;
+}
+
+/* TEXT TRANSITION */
+.flagship-body h3,
+.flagship-body p,
+.see-more-button {
+    transition: transform 0.4s ease;
+}
+
+/* TEXT LIFT */
+.flagship-card:hover .flagship-body h3 {
+    transform: translateY(-6px);
+}
+
+.flagship-card:hover .flagship-body p {
+    transform: translateY(-4px);
+}
+
+.flagship-card:hover .see-more-button {
+    transform: translateY(-3px);
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+.see-more-button {
+    margin-top: 15px;
+    background: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: inherit;
+}

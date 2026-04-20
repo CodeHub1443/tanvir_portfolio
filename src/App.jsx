@@ -1,12 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import HeroImageReveal from './components/HeroImageReveal'
+import ImpactSnapshot from './components/ImpactSnapshot'
+import FlagshipSystems from './components/FlagshipSystems'
+import StartupAppliedAI from './components/StartupAppliedAI'
+import EngineeringPhilosophy from './components/EngineeringPhilosophy'
+import ContactTestimonials from './components/ContactTestimonials'
+import CurrentlyBuilding from './components/CurrentlyBuilding'
 
 export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    tl.from('.nav-brand, .nav-links li, .nav-phone', {
+    tl.from('.nav-brand, .nav-links li, .nav-phone, .nav-toggle', {
       opacity: 0,
       y: -20,
       stagger: 0.05,
@@ -25,14 +33,12 @@ export default function App() {
       )
       .from('.hero-desc', { opacity: 0, y: 30, duration: 0.7 }, '-=0.3')
       .from('.hero-cta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.3')
-    // Hero image reveal is handled by the component itself, 
-    // but we can trigger it or just let it run on mount.
-    // We'll keep the timing consistent with the rest.
 
     const track = document.querySelector('.scroll-track')
     const progress = document.querySelector('.scroll-progress')
 
     const updateScrollIndicator = () => {
+      if (!track || !progress) return
       const scrollTop = window.scrollY
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight
@@ -57,6 +63,12 @@ export default function App() {
     return () => window.removeEventListener('scroll', updateScrollIndicator)
   }, [])
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
+  const navItems = [
+    'Home', 'About', 'Projects', 'Education', 'Testimonials', 'Partners', 'Blog', 'Contact'
+  ]
+
   return (
     <div className="page">
       <section className="section hero">
@@ -67,18 +79,36 @@ export default function App() {
           </div>
 
           <ul className="nav-links">
-            <li>Home</li>
-            <li>About</li>
-            <li>Projects</li>
-            <li>Education</li>
-            <li>Testimonials</li>
-            <li>Partners</li>
-            <li>Blog</li>
-            <li>Contact</li>
+            {navItems.map(item => <li key={item}>{item}</li>)}
           </ul>
 
           <div className="nav-phone">+7 (212) 674-25-10</div>
+
+          <button 
+            className={`nav-toggle ${isMenuOpen ? 'active' : ''}`} 
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </nav>
+
+        {/* MOBILE MENU */}
+        <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
+          <ul className="mobile-nav-links">
+            {navItems.map((item, i) => (
+              <li 
+                key={item} 
+                onClick={toggleMenu}
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* SOCIAL RAIL */}
         <div className="social-rail">
@@ -126,7 +156,7 @@ export default function App() {
 
         {/* HERO CONTENT */}
         <div className="hero-left">
-          <span className="hero-role">Product Designer</span>
+          <span className="hero-role">Founder × Engineer</span>
 
           <h1 className="hero-title">
             {'Tanvir'.split('').map((c, i) => (
@@ -138,19 +168,32 @@ export default function App() {
           </h1>
 
           <p className="hero-desc">
-            Working with client and community, we deliver masterpieces that
-            create vibrant new places and spaces.
+            I build production-grade AI systems that ship — from $100K-backed
+            computer vision startups to GPU-decoded video pipelines running on
+            NVIDIA hardware.
           </p>
 
-          <a href="#work" className="hero-cta">
-            Explore what I’ve built
-          </a>
+          <div className="hero-cta-group">
+            <a href="#work" className="hero-cta">
+              See What I've Shipped
+            </a>
+            <a href="#contact" className="hero-cta hero-cta-secondary">
+              Book a Call
+            </a>
+          </div>
         </div>
       </section>
 
-      <section id="work" className="section work">Work</section>
-      <section className="section about">About</section>
-      <section className="section footer">Footer</section>
+      <ImpactSnapshot />
+
+      <div id="work">
+        <FlagshipSystems />
+      </div>
+
+      <StartupAppliedAI />
+      <EngineeringPhilosophy />
+      <CurrentlyBuilding />
+      <ContactTestimonials />
     </div>
   )
 }
