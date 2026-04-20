@@ -1431,3 +1431,472 @@ body {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.3);
 }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.form-error {
+  font-size: 13px;
+  color: #ff6b6b;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,107,107,0.25);
+  background: rgba(255,107,107,0.05);
+}
+
+.form-success {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.form-success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0,255,140,0.1);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.form-success h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.form-success p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-dots::after {
+  content: '...';
+  animation: dots 1.2s steps(4, end) infinite;
+  display: inline-block;
+  width: 20px;
+  text-align: left;
+  overflow: hidden;
+}
+
+@keyframes dots {
+  0%  { width: 0 }
+  33% { width: 8px }
+  66% { width: 14px }
+  100%{ width: 20px }
+}
+
+input:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   SMOOTH SCROLL + SCROLL OFFSET
+   ========================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 90px;
+}
+
+/* =========================================
+   NAV ANCHOR LINK STYLES
+   ========================================= */
+
+.nav-links li a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links li a:hover {
+  opacity: 1;
+}
+
+.mobile-nav-links li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================
+   JOURNEY TIMELINE
+   ========================================= */
+
+.journey-section {
+  padding: 120px 0;
+  background: #030303;
+}
+
+.timeline-wrap {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding-left: 110px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 88px;
+  top: 8px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12) 5%, rgba(255,255,255,0.12) 95%, transparent);
+}
+
+/* ITEM */
+.tl-item {
+  position: relative;
+  padding: 0 0 52px 40px;
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.55s ease var(--tl-delay, 0ms),
+              transform 0.55s ease var(--tl-delay, 0ms);
+}
+
+.tl-item.tl-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* DOT */
+.tl-dot {
+  position: absolute;
+  left: -5px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.tl-dot-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* YEAR */
+.tl-year {
+  position: absolute;
+  left: -110px;
+  top: 2px;
+  width: 80px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* CARD */
+.tl-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 24px 28px;
+  transition: border-color 0.3s ease;
+}
+
+.tl-item:hover .tl-card {
+  border-color: rgba(255,255,255,0.12);
+}
+
+.tl-card-header {
+  margin-bottom: 10px;
+}
+
+.tl-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.tl-org {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.tl-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 14px;
+}
+
+.tl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tl-tag {
+  font-size: 10px;
+  padding: 3px 9px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.4);
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .timeline-wrap {
+    padding-left: 24px;
+  }
+
+  .timeline-line {
+    left: 0;
+  }
+
+  .tl-item {
+    padding-left: 20px;
+  }
+
+  .tl-dot {
+    left: -5px;
+  }
+
+  .tl-year {
+    position: static;
+    width: auto;
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .tl-title {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   TECH STACK
+   ========================================= */
+
+.tech-section {
+  padding: 120px 0;
+  background: #060606;
+}
+
+.ts-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease var(--ts-delay, 0ms),
+              transform 0.5s ease var(--ts-delay, 0ms);
+}
+
+.ts-row:last-child {
+  border-bottom: none;
+}
+
+.ts-row.ts-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ts-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.ts-cat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ts-cat-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.ts-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-skill {
+  font-size: 12px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+  border-radius: 2px;
+  cursor: default;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.ts-skill:hover {
+  border-color: var(--skill-accent, var(--accent-color));
+  color: var(--skill-accent, var(--accent-color));
+  background: rgba(255,255,255,0.03);
+}
+
+@media (max-width: 768px) {
+  .ts-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px 0;
+  }
+}
+
+/* =========================================
+   FLAGSHIP — RESEARCH TIER
+   ========================================= */
+
+.research-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 60px 0 32px;
+}
+
+.research-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  white-space: nowrap;
+}
+
+.research-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.research-card {
+  background: #0d0d0f;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.research-card:hover {
+  border-color: rgba(255,255,255,0.14);
+  transform: translateY(-4px);
+}
+
+.research-card-top .research-media {
+  height: 180px;
+  background: #1a1a1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.15);
+  font-size: 13px;
+}
+
+.research-body {
+  padding: 24px;
+}
+
+.research-body-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.research-body-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.research-badge {
+  font-size: 10px;
+  padding: 3px 9px;
+  border: 1px solid rgba(0,255,140,0.3);
+  color: var(--accent-color);
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.research-body p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 14px;
+}
+
+@media (max-width: 768px) {
+  .research-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   FLAGSHIP — EXTRA CARD COLORS
+   ========================================= */
+
+.card-hameem {
+  box-shadow: 0 5px 10px rgba(255, 140, 0, 0.3);
+}
+
+.card-hameem::before {
+  filter: blur(40px) hue-rotate(30deg);
+}
+
+.card-jersey {
+  box-shadow: 0 5px 10px rgba(150, 60, 255, 0.3);
+}
+
+.card-jersey::before {
+  filter: blur(40px) hue-rotate(270deg);
+}

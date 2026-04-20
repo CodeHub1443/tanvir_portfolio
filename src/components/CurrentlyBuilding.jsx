@@ -8,22 +8,23 @@ const CurrentlyBuilding = () => {
                     <div className="currently-label">Currently Building</div>
                     <div className="currently-body">
                         <h2 className="currently-title">
-                            Next-Gen Maritime <span className="highlight-red">Vision System</span>
+                            Zipto &mdash; <span className="highlight-red">AI Marketing Automation</span>
                         </h2>
                         <p className="currently-desc">
-                            Extending Lynkeus AI's GPU inference stack into a real-time multi-vessel
-                            tracking platform — sub-100ms latency, NVDEC hardware decode, live chart
-                            overlay on AIS data streams.
+                            A SaaS platform that automates digital marketing through AI &mdash; from
+                            campaign creation and audience targeting to performance optimization and
+                            reporting. Built to give brands the output of a full marketing team
+                            at a fraction of the cost.
                         </p>
                         <div className="currently-meta">
-                            <span className="currently-tag">Computer Vision</span>
-                            <span className="currently-tag">C++ / CUDA</span>
-                            <span className="currently-tag">NVIDIA NVDEC</span>
-                            <span className="currently-tag">AIS Integration</span>
+                            <span className="currently-tag">SaaS</span>
+                            <span className="currently-tag">AI Automation</span>
+                            <span className="currently-tag">Digital Marketing</span>
+                            <span className="currently-tag">Full-Stack</span>
                         </div>
                         <div className="currently-status">
                             <span className="status-dot"></span>
-                            <span>In active development &mdash; open to strategic partners</span>
+                            <span>In active development &mdash; open to early adopters &amp; strategic partners</span>
                         </div>
                     </div>
                 </div>

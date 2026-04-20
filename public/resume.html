@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tanvir Tabassum &mdash; Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── SCREEN ─────────────────────────────── */
+    :root {
+      --accent: #00ff8c;
+      --bg: #080808;
+      --surface: #101012;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e8e8;
+      --muted: rgba(255,255,255,0.45);
+      --label: rgba(255,255,255,0.28);
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-wrap {
+      max-width: 860px;
+      margin: 60px auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── PRINT BUTTON ─────────────────────── */
+    .print-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 12px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      z-index: 99;
+      transition: opacity 0.2s;
+    }
+    .print-btn:hover { opacity: 0.85; }
+
+    /* ─── HEADER ─────────────────────────────── */
+    .r-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+      margin-bottom: 40px;
+    }
+
+    .r-name {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .r-name span { color: var(--accent); }
+
+    .r-headline {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .r-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .r-contacts a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .r-contacts a:hover { color: var(--accent); }
+
+    .r-contacts .sep { color: var(--label); }
+
+    /* ─── LAYOUT ─────────────────────────────── */
+    .r-body {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ─── SECTION ─────────────────────────────── */
+    .r-section { margin-bottom: 40px; }
+
+    .r-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(0,255,140,0.15);
+    }
+
+    /* ─── SUMMARY ─────────────────────────────── */
+    .r-summary p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ─── EXPERIENCE ─────────────────────────────── */
+    .r-exp-item {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .r-exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .r-exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .r-exp-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .r-exp-date {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .r-exp-org {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .r-exp-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .r-exp-bullets li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .r-exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--label);
+    }
+
+    .r-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .r-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      color: var(--label);
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────── */
+    .r-sidebar .r-section { margin-bottom: 32px; }
+
+    /* Skills */
+    .r-skill-group { margin-bottom: 16px; }
+
+    .r-skill-cat {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 7px;
+    }
+
+    .r-skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .r-skill-pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: rgba(255,255,255,0.55);
+      border-radius: 2px;
+    }
+
+    /* Awards */
+    .r-award-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .r-award-item:last-child { border-bottom: none; }
+
+    .r-award-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .r-award-detail {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Education */
+    .r-edu-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .r-edu-school {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .r-edu-detail {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Metrics strip */
+    .r-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-bottom: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .r-metric {
+      background: var(--surface);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .r-metric-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .r-metric-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      line-height: 1.3;
+    }
+
+    /* ─── PRINT STYLES ─────────────────────────── */
+    @media print {
+      @page { margin: 16mm 18mm; size: A4; }
+
+      :root {
+        --accent: #008a4e;
+        --bg: #fff;
+        --surface: #f7f7f7;
+        --border: #e0e0e0;
+        --text: #111;
+        --muted: #555;
+        --label: #888;
+      }
+
+      body { background: #fff; color: #111; font-size: 12px; }
+
+      .page-wrap { max-width: 100%; margin: 0; padding: 0; }
+
+      .print-btn { display: none; }
+
+      .r-name { font-size: 32px; }
+
+      .r-body { gap: 32px; }
+
+      .r-metrics {
+        display: flex;
+        gap: 16px;
+        background: none;
+        border: none;
+        margin-bottom: 28px;
+      }
+
+      .r-metric {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        flex: 1;
+      }
+
+      .r-metric-val { font-size: 18px; }
+
+      .r-exp-bullets li { color: #333; }
+
+      .r-skill-pill {
+        background: #f0f0f0;
+        border-color: #ccc;
+        color: #444;
+      }
+
+      .r-tag {
+        border-color: #ccc;
+        color: #666;
+      }
+
+      .r-section-title { color: #008a4e; border-bottom-color: rgba(0,138,78,0.2); }
+
+      .r-exp-org { color: #008a4e; }
+
+      .r-edu-school { color: #008a4e; }
+
+      .r-award-name { color: #111; }
+    }
+
+    @media (max-width: 680px) {
+      .r-body { grid-template-columns: 1fr; }
+      .r-metrics { grid-template-columns: 1fr; }
+      .r-name { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">&#8595; Save as PDF</button>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="r-header">
+    <h1 class="r-name">Tanvir<span>.</span></h1>
+    <p class="r-headline">AI Founder &nbsp;&middot;&nbsp; Systems Architect &nbsp;&middot;&nbsp; Performance Engineer</p>
+    <div class="r-contacts">
+      <a href="mailto:tanvir.tabassum.bd@gmail.com">tanvir.tabassum.bd@gmail.com</a>
+      <span class="sep">/</span>
+      <a href="https://linkedin.com/in/tanvirtabassum" target="_blank">linkedin.com/in/tanvirtabassum</a>
+      <span class="sep">/</span>
+      <a href="https://github.com/CodeHub1443" target="_blank">github.com/CodeHub1443</a>
+      <span class="sep">/</span>
+      <span>Bangladesh &nbsp;&middot;&nbsp; Open to Remote &amp; Relocation</span>
+    </div>
+  </header>
+
+  <!-- METRICS STRIP -->
+  <div class="r-metrics">
+    <div class="r-metric">
+      <span class="r-metric-val">$300K+</span>
+      <span class="r-metric-lbl">Capital Raised</span>
+    </div>
+    <div class="r-metric">
+      <span class="r-metric-val">3</span>
+      <span class="r-metric-lbl">Ventures Founded</span>
+    </div>
+    <div class="r-metric">
+      <span class="r-metric-val">93%</span>
+      <span class="r-metric-lbl">CPU Reduction (Decoder)</span>
+    </div>
+  </div>
+
+  <div class="r-body">
+
+    <!-- LEFT / MAIN -->
+    <main>
+
+      <!-- SUMMARY -->
+      <section class="r-section r-summary">
+        <h2 class="r-section-title">Profile</h2>
+        <p>
+          Serial AI founder and performance engineer with 10+ years building production-grade systems
+          across computer vision, geospatial intelligence, and high-performance frontend architecture.
+          Track record spanning aerospace engineering at Airbus, founding Bangladesh&rsquo;s first AI startup
+          (acquired by the Government of Bangladesh), and launching a profitable GPU-optimized maritime
+          vision venture in Seoul. Raised $300K+, won APICTA Best AI Startup, and competed at the
+          Entrepreneurship World Cup in Riyadh.
+        </p>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="r-section">
+        <h2 class="r-section-title">Experience</h2>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Founder &amp; CEO &mdash; Zipto</span>
+            <span class="r-exp-date">2024 &ndash; Present</span>
+          </div>
+          <div class="r-exp-org">AI Marketing Automation SaaS</div>
+          <ul class="r-exp-bullets">
+            <li>Building an AI-powered digital marketing automation platform that automates campaign creation, audience targeting, performance optimization, and reporting.</li>
+            <li>Architecting full-stack SaaS infrastructure including AI pipeline, React frontend, and API backend.</li>
+            <li>Designed to deliver full-marketing-team output at a fraction of the cost for growing brands.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">SaaS</span><span class="r-tag">AI Automation</span><span class="r-tag">React</span><span class="r-tag">FastAPI</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Founder &mdash; Lynkeus AI</span>
+            <span class="r-exp-date">2021 &ndash; Present</span>
+          </div>
+          <div class="r-exp-org">Seoul, South Korea &nbsp;&middot;&nbsp; Maritime Computer Vision</div>
+          <ul class="r-exp-bullets">
+            <li>Founded GPU-optimized maritime AI venture in Seoul; secured $200K+ in Korean government grants via K-Startup Grand Challenge (top 5% of 3,200+ global applicants).</li>
+            <li>Reduced model inference latency by 40% through custom NVIDIA hardware optimization and TensorRT deployment.</li>
+            <li>Reached profitability by 2025 with an international customer base across maritime and industrial sectors.</li>
+            <li>Developed NVDEC-based multi-stream IP camera pipeline handling 8+ simultaneous feeds.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">Computer Vision</span><span class="r-tag">CUDA</span><span class="r-tag">TensorRT</span><span class="r-tag">NVDEC</span><span class="r-tag">C++</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Co-Founder &amp; Director &mdash; Sigmind AI</span>
+            <span class="r-exp-date">2016 &ndash; 2021</span>
+          </div>
+          <div class="r-exp-org">Dhaka, Bangladesh &nbsp;&middot;&nbsp; Bangladesh&rsquo;s First AI Startup</div>
+          <ul class="r-exp-bullets">
+            <li>Founded Bangladesh&rsquo;s first computer vision SaaS; raised $100K seed from SBK Tech Ventures &amp; Robi Axiata.</li>
+            <li>Built and deployed face detection, person tracking, and license plate recognition systems into production environments.</li>
+            <li>Achieved 3.2&times; ROAS through end-to-end AI pipeline optimization for client advertising systems.</li>
+            <li>Technology and IP subsequently acquired by the Government of Bangladesh for national AI infrastructure.</li>
+            <li>Won APICTA Best AI Startup (Asia-Pacific), BASIS National ICT Award, and competed at EWC Riyadh &mdash; all in 2019.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">Computer Vision</span><span class="r-tag">YOLOv8</span><span class="r-tag">Python</span><span class="r-tag">OpenCV</span><span class="r-tag">SaaS</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Aerospace Engineer</span>
+            <span class="r-exp-date">2015</span>
+          </div>
+          <div class="r-exp-org">Airbus &mdash; Germany</div>
+          <ul class="r-exp-bullets">
+            <li>High-tech aerospace engineering with emphasis on system precision, reliability, and performance under real-world failure conditions.</li>
+            <li>Gained deep expertise in engineering-at-scale methodologies that inform all subsequent system architecture decisions.</li>
+          </ul>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Automotive Systems Engineer</span>
+            <span class="r-exp-date">2014</span>
+          </div>
+          <div class="r-exp-org">Continental Automotive &mdash; Germany</div>
+          <ul class="r-exp-bullets">
+            <li>Worked on next-generation automotive systems, learning how precision engineering operates under large-scale production constraints.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- SELECTED PROJECTS -->
+      <section class="r-section">
+        <h2 class="r-section-title">Selected Projects</h2>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Advanced C++ NVDEC Decoder</span>
+            <span class="r-exp-date">github.com/CodeHub1443</span>
+          </div>
+          <ul class="r-exp-bullets">
+            <li>Reduced CPU frame-decode overhead from 22.8% to 1.65% &mdash; a <strong>93% reduction</strong> &mdash; by offloading H.264/H.265 decoding entirely to GPU via custom CUDA/NVDEC pipeline with ThreadPool and FrameBuffer architecture.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">C++</span><span class="r-tag">CUDA</span><span class="r-tag">NVDEC</span><span class="r-tag">FFmpeg</span><span class="r-tag">CMake</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Agro &mdash; AI Drone Analytics Platform</span>
+          </div>
+          <ul class="r-exp-bullets">
+            <li>Full-stack geospatial analytics system processing 4K drone footage through YOLOv8 + SAHI tiled inference, projecting detections to real GPS coordinates via custom homographic transform. Sub-meter crop anomaly localization on fields up to 200 hectares.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">YOLOv8</span><span class="r-tag">SAHI</span><span class="r-tag">FastAPI</span><span class="r-tag">TensorRT</span><span class="r-tag">Geospatial</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Ha-Meem AI Surveillance System</span>
+          </div>
+          <ul class="r-exp-bullets">
+            <li>Production-grade real-time face recognition for factory entry-zone CCTV. Modular pipeline: detection &rarr; recognition &rarr; tracking &rarr; quality assessment. Deployed with TensorRT-optimized ONNX models in Docker containers.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">Python</span><span class="r-tag">ONNX</span><span class="r-tag">TensorRT</span><span class="r-tag">Docker</span>
+          </div>
+        </div>
+
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-exp-title">Temporal Jersey Number Recognition</span>
+          </div>
+          <ul class="r-exp-bullets">
+            <li>Sports CV model recognizing jersey numbers (00&ndash;99) from video sequences using BiLSTM + attention across frames. ConvNeXt-Tiny backbone with independent digit classifiers. 87.56% tens-digit accuracy on 3-fold cross-validation.</li>
+          </ul>
+          <div class="r-tags">
+            <span class="r-tag">PyTorch</span><span class="r-tag">BiLSTM</span><span class="r-tag">ConvNeXt</span><span class="r-tag">Attention</span>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="r-sidebar">
+
+      <!-- EDUCATION -->
+      <section class="r-section">
+        <h2 class="r-section-title">Education</h2>
+        <div class="r-edu-title">Electrical Engineering &amp; IT</div>
+        <div class="r-edu-school">Ravensburg-Weingarten University of Applied Sciences</div>
+        <div class="r-edu-detail">Germany &nbsp;&middot;&nbsp; 2013</div>
+      </section>
+
+      <!-- AWARDS -->
+      <section class="r-section">
+        <h2 class="r-section-title">Awards &amp; Recognition</h2>
+
+        <div class="r-award-item">
+          <div class="r-award-name">APICTA &mdash; Best AI Startup</div>
+          <div class="r-award-detail">Asia-Pacific &nbsp;&middot;&nbsp; Vietnam &nbsp;&middot;&nbsp; 2019</div>
+        </div>
+
+        <div class="r-award-item">
+          <div class="r-award-name">K-Startup Grand Challenge</div>
+          <div class="r-award-detail">Top 5% of 3,200+ applicants &nbsp;&middot;&nbsp; Seoul</div>
+        </div>
+
+        <div class="r-award-item">
+          <div class="r-award-name">Entrepreneurship World Cup</div>
+          <div class="r-award-detail">Global Finalist &nbsp;&middot;&nbsp; Riyadh, Saudi Arabia &nbsp;&middot;&nbsp; 2019</div>
+        </div>
+
+        <div class="r-award-item">
+          <div class="r-award-name">BASIS National ICT Award</div>
+          <div class="r-award-detail">Bangladesh &nbsp;&middot;&nbsp; 2019</div>
+        </div>
+
+        <div class="r-award-item">
+          <div class="r-award-name">Daily Star ICT Award</div>
+          <div class="r-award-detail">Bangladesh</div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="r-section">
+        <h2 class="r-section-title">Skills</h2>
+
+        <div class="r-skill-group">
+          <div class="r-skill-cat">AI &amp; Computer Vision</div>
+          <div class="r-skill-list">
+            <span class="r-skill-pill">YOLOv8</span>
+            <span class="r-skill-pill">SAHI</span>
+            <span class="r-skill-pill">TensorRT</span>
+            <span class="r-skill-pill">ONNX</span>
+            <span class="r-skill-pill">PyTorch</span>
+            <span class="r-skill-pill">OpenCV</span>
+            <span class="r-skill-pill">BiLSTM</span>
+            <span class="r-skill-pill">ConvNeXt</span>
+          </div>
+        </div>
+
+        <div class="r-skill-group">
+          <div class="r-skill-cat">GPU &amp; Performance</div>
+          <div class="r-skill-list">
+            <span class="r-skill-pill">CUDA</span>
+            <span class="r-skill-pill">NVDEC</span>
+            <span class="r-skill-pill">C++</span>
+            <span class="r-skill-pill">FFmpeg</span>
+            <span class="r-skill-pill">CMake</span>
+            <span class="r-skill-pill">RTSP</span>
+          </div>
+        </div>
+
+        <div class="r-skill-group">
+          <div class="r-skill-cat">Frontend</div>
+          <div class="r-skill-list">
+            <span class="r-skill-pill">React</span>
+            <span class="r-skill-pill">Next.js 14</span>
+            <span class="r-skill-pill">TypeScript</span>
+            <span class="r-skill-pill">GSAP</span>
+            <span class="r-skill-pill">HTML5 Canvas</span>
+            <span class="r-skill-pill">Tailwind</span>
+          </div>
+        </div>
+
+        <div class="r-skill-group">
+          <div class="r-skill-cat">Backend &amp; Infra</div>
+          <div class="r-skill-list">
+            <span class="r-skill-pill">Python</span>
+            <span class="r-skill-pill">FastAPI</span>
+            <span class="r-skill-pill">Node.js</span>
+            <span class="r-skill-pill">Docker</span>
+          </div>
+        </div>
+
+        <div class="r-skill-group">
+          <div class="r-skill-cat">Geospatial</div>
+          <div class="r-skill-list">
+            <span class="r-skill-pill">Mapbox</span>
+            <span class="r-skill-pill">Leaflet</span>
+            <span class="r-skill-pill">GPS Projection</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LANGUAGES -->
+      <section class="r-section">
+        <h2 class="r-section-title">Languages</h2>
+        <div class="r-skill-list">
+          <span class="r-skill-pill">English &mdash; Fluent</span>
+          <span class="r-skill-pill">Bengali &mdash; Native</span>
+          <span class="r-skill-pill">German &mdash; Working</span>
+        </div>
+      </section>
+
+    </aside>
+  </div>
+</div>
+
+</body>
+</html>

@@ -16,13 +16,14 @@ const ImpactSnapshot = () => {
                 <div className="impact-content">
                     <div className="impact-left">
                         <p>
-                            I build production-grade systems at the intersection of artificial intelligence,
-                            geospatial engineering, and high-performance frontend architecture. My work spans
-                            venture-backed startups, government-backed accelerators, and full-stack platforms
-                            deployed in real-world environments.
+                            I build production-grade AI systems at the intersection of computer vision,
+                            geospatial engineering, and high-performance architecture. My career spans
+                            aerospace engineering at <strong>Airbus</strong> and <strong>Continental Automotive</strong> in Germany,
+                            to founding Bangladesh&apos;s first AI startup &mdash; whose technology was acquired
+                            by the Government of Bangladesh for national infrastructure.
                         </p>
                         <p className="impact-tagline">
-                            Competed in Riyadh. Won in Seoul. Built in Dhaka.
+                            Engineered in Germany. Won in Seoul. Built for the world.
                         </p>
                     </div>
 
@@ -33,26 +34,28 @@ const ImpactSnapshot = () => {
                             <span className="metric-sub">$100K Seed &middot; $200K Gov Grants</span>
                         </div>
                         <div className="metric-card">
-                            <h3 className="metric-value">2</h3>
-                            <p className="metric-label">Funded Ventures</p>
-                            <span className="metric-sub">Sigmind AI &middot; Lynkeus AI</span>
+                            <h3 className="metric-value">3</h3>
+                            <p className="metric-label">Ventures Founded</p>
+                            <span className="metric-sub">Sigmind &middot; Lynkeus &middot; Zipto</span>
                         </div>
                         <div className="metric-card">
-                            <h3 className="metric-value">K-Startup</h3>
-                            <p className="metric-label">Grand Challenge</p>
-                            <span className="metric-sub">Top 5% of 3,200+ applicants</span>
+                            <h3 className="metric-value">2016</h3>
+                            <p className="metric-label">First AI Startup</p>
+                            <span className="metric-sub">10+ years building AI systems</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="recognition-strip">
+                    <span className="recognition-item">Airbus &middot; Continental Automotive</span>
+                    <span className="separator">&bull;</span>
                     <span className="recognition-item">APICTA Award &mdash; Best AI Startup</span>
                     <span className="separator">&bull;</span>
-                    <span className="recognition-item">BASIS ICT National Award</span>
+                    <span className="recognition-item">K-Startup Grand Challenge &mdash; Seoul</span>
                     <span className="separator">&bull;</span>
                     <span className="recognition-item">Entrepreneurship World Cup &mdash; Riyadh</span>
                     <span className="separator">&bull;</span>
-                    <span className="recognition-item">Daily Star ICT Award</span>
+                    <span className="recognition-item">BASIS ICT National Award</span>
                 </div>
             </div>
         </section>

@@ -17,12 +17,13 @@ const EngineeringPhilosophy = () => {
                         <div className="principle-body">
                             <h3>Build for the hard constraint, not the happy path.</h3>
                             <p>
-                                Every system I&apos;ve shipped was designed around its worst-case load
-                                &mdash; maritime streams, 4K aerial video, multi-camera pipelines.
-                                The edge case is the spec.
+                                Aerospace engineering at Airbus taught me this: the edge case is the
+                                spec. Every system I&apos;ve shipped &mdash; maritime streams, 4K aerial
+                                video, multi-camera factory surveillance &mdash; was designed around
+                                its worst-case load first.
                             </p>
                             <div className="principle-proof">
-                                Proven on: Agro drone analytics &middot; NVDEC multi-stream engine
+                                Proven on: Airbus &middot; Agro drone analytics &middot; NVDEC multi-stream engine
                             </div>
                         </div>
                     </div>
@@ -59,12 +60,12 @@ const EngineeringPhilosophy = () => {
                 </div>
 
                 <div className="philosophy-actions">
-                    <button className="primary-button">
+                    <a href="/resume.html" target="_blank" rel="noopener noreferrer" className="primary-button">
                         <span>Download Resume</span>
-                    </button>
-                    <button className="secondary-button">
+                    </a>
+                    <a href="#contact" className="secondary-button">
                         <span>Book a Call</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
